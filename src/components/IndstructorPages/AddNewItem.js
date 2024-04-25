@@ -33,6 +33,7 @@ export default function AddNewItem() {
             class="form-control"
             id="validationTextarea"
             placeholder="Product Description"
+            rows={4}
             required
           ></textarea>
           <div class="invalid-feedback">
@@ -65,7 +66,7 @@ export default function AddNewItem() {
             aria-label="file example"
             required
           />
-          <div class="invalid-feedback">Example invalid form file feedback</div>
+          <div class="invalid-feedback">*Recommanded: Add Pictures with [width: 300px] and [height: 300px]</div>
         </div>
 
         <div class="form-check mb-3">
