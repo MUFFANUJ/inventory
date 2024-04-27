@@ -1,18 +1,68 @@
 import React, { useState, useEffect } from "react";
-import { FaLessThanEqual } from "react-icons/fa6";
 import { IoIosStar } from "react-icons/io";
 
-export default function ViewAllItems() {
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    fetch("https://dummyjson.com/products")
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data.products);
-        setLoading(true);
-      });
-  }, []);
+export default function InstructorViewAllItems({items,setItems}) {
+  console.log(items);
+  // const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [ratingSort,setRatingSort] = useState(false);
+  const [itemsCopy,setItemsCopy] = useState([]);
+  // const [priceSort,setPriceSort] = useState([]);
+  // const [newestSort,setNewestSort] = useState([]);
+
+  // useEffect(() => {
+  //   fetch("https://dummyjson.com/products")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setItems(data.products);
+  //       setLoading(true);
+  //       setItemsCopy(data.products)
+  //     });
+  // }, []);
+
+  // function displayAll(){
+    // setRatingSort(prev => !prev);
+  //   setItems(itemsCopy);
+  // }
+  
+
+  function sortByRating(){
+    // return [...items].sort((a, b) => a.rating - b.rating).reverse();
+    // const arr2 = items.map(item=> ({...item}))
+    // const arr = items.slice().sort((a, b) => a.rating - b.rating).reverse();
+    // console.log(arr)
+    // console.log(items)
+    
+    // Create a new array by slicing the original one
+    const newArrayToSort = items.slice();
+    
+    // Sort the new array using a comparison function
+    newArrayToSort.sort((a, b) => b.rating - a.rating);
+    
+    // console.log(arr2); // Remains unchanged
+    // console.log(newArrayToSort); // Sorted array in ascending order by age
+    
+    
+    // setRatingSort(prev => !prev);
+    // if (ratingSort){
+      // console.log(true);
+      // setItems(itemsCopy);
+    // }else{
+      setItems([...newArrayToSort])
+    // }
+    // console.log(arr)
+    // setRatingSort(arr)
+    // setItems(ratingSort);
+  }
+
+  // function handleRatingSort(){
+  //   const arr = sortByRating(items);
+  //   setItems([...arr])
+  // }
+
+
+
+
   return (
     // <div className="m-auto p-0">
     <>
@@ -29,16 +79,22 @@ export default function ViewAllItems() {
           type="button"
           id="button-addon2"
         >
-          Button
+          Search
         </button>
       </div>
 
       <div className="w-75 m-auto">
         <span>Sort Items With:</span>
+        <button type="button" class="btn btn-success btn-sm m-1" >
+          All
+        </button>
         <button type="button" class="btn btn-success btn-sm m-1">
           Newest First
         </button>
         <button type="button" class="btn btn-success btn-sm m-1">
+          Available
+        </button>
+        <button type="button" class="btn btn-success btn-sm m-1" onClick={sortByRating}>
           Rating
         </button>
         <button type="button" class="btn btn-success btn-sm m-1">
@@ -80,7 +136,7 @@ export default function ViewAllItems() {
                     <div class="carousel-inner">
                       <div class={`carousel-item active ${item.id}`}>
                         <img
-                          src={item.images[0]}
+                          src={item.images1 ? item.images1 : "https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg"}
                           style={{
                             width: "300px",
                             height: "300px",
@@ -92,7 +148,7 @@ export default function ViewAllItems() {
                       </div>
                       <div class="carousel-item">
                         <img
-                          src={item.images[1]}
+                          src={item.images2 ? item.images2 : "https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg"}
                           class="d-block w-100"
                           alt="..."
                           style={{
@@ -104,7 +160,7 @@ export default function ViewAllItems() {
                       </div>
                       <div class="carousel-item">
                         <img
-                          src={item.images[2]}
+                          src={item.images3 ? item.images3 : "https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg"}
                           class="d-block w-100"
                           alt="..."
                           style={{
@@ -116,7 +172,7 @@ export default function ViewAllItems() {
                       </div>
                       <div class="carousel-item">
                         <img
-                          src={item.images[3]}
+                          src={item.images4 ? item.images4 : "https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg"}
                           class="d-block w-100"
                           alt="..."
                           style={{
@@ -128,7 +184,7 @@ export default function ViewAllItems() {
                       </div>
                       <div class="carousel-item">
                         <img
-                          src={item.images[4]}
+                          src={item.images5 ? item.images5 : "https://t3.ftcdn.net/jpg/04/34/72/82/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg"}
                           class="d-block w-100"
                           alt="..."
                           style={{
@@ -168,14 +224,23 @@ export default function ViewAllItems() {
                   <div class="card-body">
                     <h5 class="card-title">{item.title}</h5>
                     <p
-                      class="card-text overflow-auto"
-                      style={{ height: "70px" }}
+                      class="card-text overflow-auto card m-1"
+                      style={{ height: "60px" }}
                     >
                       {item.description}
                     </p>
-                    <p class="card-text">
-                      Rating:{item.rating} <IoIosStar />
+                    <p class="card-text m-0">
+                      Rating:{item.rating ? item.rating : 0} <IoIosStar />
                     </p>
+                    <p class="card-text m-0">
+                      Items Available in Inventory: {item.stock} 
+                    </p>
+                    <p class="card-text">
+                      Price: {item.price ? item.price : 0}
+                      <div></div>
+                      <span class="badge text-bg-success">#{item.category}</span>
+                    </p>
+                    
                     <div className="d-flex justify-content-around">
                       <button class="btn btn-sm btn-danger p-2">
                         Delete This Item

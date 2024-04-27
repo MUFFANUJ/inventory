@@ -9,10 +9,14 @@ import AddNewItem from "./IndstructorPages/AddNewItem";
 import HistoryOfRequests from "./IndstructorPages/HistoryOfRequests";
 import InstructorHome from "./IndstructorPages/InstructorHome";
 import ViewActiveRequest from "./IndstructorPages/ViewActiveRequest";
-import ViewAllItems from "./IndstructorPages/ViewAllItems";
+import InstructorViewAllItems from "./IndstructorPages/InstructorViewAllItems";
 // import { useState } from "react";
 
 export default function InstructorUI() {
+
+  const [items, setItems] = useState([]);
+
+  
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 912); 
   useEffect(() => {
@@ -38,12 +42,12 @@ export default function InstructorUI() {
             <div class="row">
               <Routes>
                 <Route path="/about" element={<About />} />
-                <Route path="/new-item" element={<AddNewItem />} />
+                <Route path="/new-item" element={<AddNewItem setItems={setItems} items={items}/>} />
                 <Route path="/history" element={<HistoryOfRequests />} />
                 <Route path="/" element={<InstructorHome />} />
                 <Route path="/report" element={<ReportAPorblem />} />
                 <Route path="/requests" element={<ViewActiveRequest />} />
-                <Route path="/all-items" element={<ViewAllItems />} />
+                <Route path="/all-items" element={<InstructorViewAllItems setItems={setItems} items={items} />} />
                 {/* <Route path="/report" element={<ReportAPorblem/>} /> */}
               </Routes>
             </div>

@@ -14,7 +14,8 @@ export default function Sidebar() {
   return (
     <div className=" border border-right-3">
       <div className=" text-center mb-3">
-        <h1>UniCart</h1>
+        <h4>UniCart</h4>
+        <h4>Instructor</h4>
         {/* <img src="" /> */}
       </div>
 
