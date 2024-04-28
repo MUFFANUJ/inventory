@@ -278,7 +278,7 @@ export default function InstructorViewAllItems({ items, setItems }) {
                       Rating:{item.rating ? item.rating : 0} <IoIosStar />
                     </p>
                     <p class="card-text m-0">
-                      Items Available in Inventory: {item.stock}
+                      Items Available in Inventory: {item.availablility}
                     </p>
                     <p class="card-text">
                       Price: {item.price ? item.price : 0}
