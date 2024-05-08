@@ -1,7 +1,7 @@
 import React , {useState, useEffect} from "react";
-import Sidebar from "./Sidebar";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Sidebar from "./InstructorComponents/Sidebar";
+import Navbar from "./InstructorComponents/Navbar";
+import Footer from "./InstructorComponents/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./IndstructorPages/About";
 import ReportAPorblem from "./IndstructorPages/ReportAPorblem";

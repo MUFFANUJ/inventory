@@ -24,289 +24,36 @@ export default function AddNewItem({ setItems, items }) {
 
   const [showDatabaseInfo, setShowDatabaseInfo] = useState(false);
   const [dataUploadStatus, setDataUploadStatus] = useState(false);
-  // const [checkBox,setCheckBox] = useState('');
+  const [checkBox,setCheckBox] = useState('');
   const [imageUrl1, setImageUrl1] = useState("");
   const [imageUrl2, setImageUrl2] = useState("");
   const [imageUrl3, setImageUrl3] = useState("");
   const [imageUrl4, setImageUrl4] = useState("");
   const [imageUrl5, setImageUrl5] = useState("");
 
-  const [finalImg1, setFinalImg1] = useState("");
-
-  const fileInputRef1 = useRef(null);
-  const fileInputRef2 = useRef(null);
-  const fileInputRef3 = useRef(null);
-  const fileInputRef4 = useRef(null);
-  const fileInputRef5 = useRef(null);
-
-  const [selectedImage1, setSelectedImage1] = useState(null);
-  const [selectedImage2, setSelectedImage2] = useState(null);
-  const [selectedImage3, setSelectedImage3] = useState(null);
-  const [selectedImage4, setSelectedImage4] = useState(null);
-  const [selectedImage5, setSelectedImage5] = useState(null);
-  // let progress;
-
-  // const [imageUrls, setImageUrls] = useState(Array(5).fill(null));
-
   async function handleAddNewItemSubmit(event) {
-    // console.log("funtion in")
     event.preventDefault();
-    // const dic = {};
     setShowDatabaseInfo(true);
-    // console.log(title)
-    // console.log(description)
-    // console.log(category)
-    // console.log(availablility)
-    // console.log(imageUrl1)
-    // console.log(imageUrl2)
-    // console.log(imageUrl3)
-    // console.log(imageUrl4)
-    // console.log(imageUrl5)
-    // dic[]
-    // setTitle(title);
-    // setDescription(description);
-    // setCategory(category);
-    // setAvailablility(availablility);
-    // setImageUrl1(imageUrl1);
-    // setImageUrl2(imageUrl2);
-    // setImageUrl3(imageUrl3);
-    // setImageUrl4(imageUrl4);
-    // setImageUrl5(imageUrl5);
-    // const imageArr = [...imageUrl1, imageUrl2, imageUrl3, imageUrl4,imageUrl5];
-    // dic["title"] = title;
-    // dic["description"] = description;
-    // dic["category"] = category;
-    // dic["stock"] = availablility;
-    // dic["images1"] = imageUrl1;
-    // dic["images2"] = imageUrl2;
-    // dic["images3"] = imageUrl3;
-    // dic["images4"] = imageUrl4;
-    // dic["images5"] = imageUrl5;
-    // dic["id"] = title
-
-    // setItems([...items, dic]);
-
-    
     const date = new Date().getTime();
-    const storageRef1 = ref(storage, `${title + date}.jpg`);
-    // const storageRef2 = ref(storage, `${title + date +2}.jpg`);
-    // const storageRef3 = ref(storage, `${title + date + 3}.jpg`);
-    // const storageRef4 = ref(storage, `${title + date + 4}.jgp`);
-    // const storageRef5 = ref(storage, `${title + date + 5}.jgp`);
+    try {
+      await setDoc(doc(db, "productsData", String(date)), {
+          title: title,
+          description: description,
+          availablility: availablility,
+          category: category,
+          imageUrl1: imageUrl1,
+          imageUrl2: imageUrl2,
+          imageUrl3: imageUrl3,
+          imageUrl4: imageUrl4,
+          imageUrl5: imageUrl5,
+          id:date,
+      });
 
-    // const imageRefs = [
-    //   ref(storage, `${title + date}.jpg`),
-    //   ref(storage, `${title + date + 1}.jpg`),
-    //   ref(storage, `${title + date + 2}.jpg`),
-    //   ref(storage, `${title + date + 3}.jpg`),
-    //   ref(storage, `${title + date + 4}.jpg`),
-    // ];
-
-    // async function uploadImage(imageRef, imageUrl) {
-    //   if (!imageUrl) {
-    //     return null; // Handle potential missing image URL
-    //   }
-
-    //   try {
-    //     const uploadTask = await uploadBytesResumable(imageRef, imageUrl);
-    //     await uploadTask.on(
-    //       "state_changed",
-    //       (snapshot) => {
-    //         // Observe state change events (optional for progress tracking)
-    //         const progress =
-    //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    //         console.log("Upload progress:", progress, "%");
-    //       },
-    //       (error) => {
-    //         console.error("Error uploading image:", error);
-    //       }
-    //     );
-
-    //     const url = await getDownloadURL(uploadTask.snapshot.ref);
-    //     return url;
-    //   } catch (error) {
-    //     console.error("Error uploading image:", error);
-    //     return null;
-    //   }
-    // }
-
-    // const uploadedImageUrls = [];
-    // for (let i = 0; i < imageRefs.length; i++) {
-    //   const imageRef = imageRefs[i];
-    //   const selectedFile =
-    //     i === 0
-    //       ? fileInputRef1.current.files[0]
-    //       : i === 1
-    //       ? fileInputRef2.current.files[0]
-    //       : i === 2
-    //       ? fileInputRef3.current.files[0]
-    //       : i === 3
-    //       ? fileInputRef4.current.files[0]
-    //       : fileInputRef5.current.files[0];
-
-    //   if (!selectedFile) {
-    //     continue; // Skip if no file selected for this slot
-    //   }
-
-    //   const uploadedUrl = await uploadImage(imageRef, selectedFile);
-    //   if (uploadedUrl) {
-    //     uploadedImageUrls.push(uploadedUrl);
-    //   }
-    // }
-
-    // const productRef = collection(db, "productsData");
-
-    // try {
-    //   await updateDoc(doc(db, "productsData", "items"), {
-    //     product: arrayUnion({
-    //       title: title,
-    //       description: description,
-    //       availablility: availablility,
-    //       category: category,
-    //       imageUrl1: uploadedImageUrls[0] || null,
-    //       imageUrl2: uploadedImageUrls[1] || null,
-    //       imageUrl3: uploadedImageUrls[2] || null,
-    //       imageUrl4: uploadedImageUrls[3] || null,
-    //       imageUrl5: uploadedImageUrls[4] || null,
-    //       id: date,
-    //     }),
-    //   });
-
-    //   setDataUploadStatus(true);
-    //   console.log("Data written successfully!");
-    // } catch (error) {
-    //   console.error("Error writing data:", error);
-    // }
-
-    // let imgArr = []
-    uploadBytesResumable(storageRef1, imageUrl1).on(
-      "state_changed",
-      (snapshot) => {
-        // Observe state change events such as progress, pause, and resume
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload progress: " + progress + "%");
-      },
-      (error) => {
-        // Handle errors during upload
-        console.error("Error uploading image: ", error);
-      },
-      () => {
-        // Upload completed successfully, get the download URL
-        getDownloadURL(storageRef1).then(async (url1) => {
-          // URL now contains the downloadable image URL
-          console.log("Image uploaded successfully: ", url1);
-          // imgArr.push(url1)
-          try {
-            await updateDoc(doc(db, "productsData", "items"), {
-              product: arrayUnion({
-                title: title,
-                description: description,
-                availablility: availablility,
-                category: category,
-                imageUrl1:  url1,
-                imageUrl2:  null,
-                imageUrl3:  null,
-                imageUrl4:  null,
-                imageUrl5:  null,
-                id: date,
-              }),
-            });
-
-            setDataUploadStatus(true);
-            console.log("Data written successfully!");
-          } catch (error) {
-            console.error("Error writing data:", error);
-          }
-          // Proceed to storing the URL in Firestore (see next step)
-        });
-      }
-    );
-
-    // try {
-    //   await updateDoc(doc(db, "productsData", "items"), {
-    //     product: arrayUnion({
-    //       title: title,
-    //       description: description,
-    //       availablility: availablility,
-    //       category: category,
-    //       imageUrl1: imgArr[0],
-    //       imageUrl2: imgArr[1],
-    //       imageUrl3: imgArr[2],
-    //       imageUrl4: imageUrl4,
-    //       imageUrl5: imageUrl5,
-    //       id:date,
-    //     }),
-    //   });
-
-    //   setDataUploadStatus(true);
-    //   console.log("Data written successfully!");
-    // } catch (error) {
-    //   console.error("Error writing data:", error);
-    // }
-
-    // const uploadTask = uploadBytesResumable(storageRef1, imageUrl1);
-    // getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-    //   setImageUrl1(downloadURL)
-    // })
-
-    // await uploadBytesResumable(storageRef1, imageUrl1).then(() => {
-    //   getDownloadURL(storageRef1).then(async (downloadURL) => {
-    //     setImageUrl1(downloadURL);
-    //   });
-    // });
-
-    // await uploadBytesResumable(storageRef2, imageUrl2).then(() => {
-    //   getDownloadURL(storageRef2).then(async (downloadURL) => {
-    //     setImageUrl1(downloadURL);
-    //   });
-    // });
-
-    // await uploadBytesResumable(storageRef3, imageUrl3).then(() => {
-    //   getDownloadURL(storageRef3).then(async (downloadURL) => {
-    //     setImageUrl1(downloadURL);
-    //   });
-    // });
-
-    // await uploadBytesResumable(storageRef4, imageUrl4).then(() => {
-    //   getDownloadURL(storageRef4).then(async (downloadURL) => {
-    //     setImageUrl1(downloadURL);
-    //   });
-    // });
-
-    // await uploadBytesResumable(storageRef5, imageUrl5).then(() => {
-    //   getDownloadURL(storageRef5).then(async (downloadURL) => {
-    //     setImageUrl1(downloadURL);
-    //   });
-    // });
-
-    // console.log("set the urls");
-
-    // const productRef = collection(db, "productsData");
-
-    // try {
-    //   await updateDoc(doc(db, "productsData", "items"), {
-    //     product: arrayUnion({
-    //       title: title,
-    //       description: description,
-    //       availablility: availablility,
-    //       category: category,
-    //       imageUrl1: imgArr[0],
-    //       imageUrl2: imgArr[1],
-    //       imageUrl3: imgArr[2],
-    //       imageUrl4: imageUrl4,
-    //       imageUrl5: imageUrl5,
-    //       id:date,
-    //     }),
-    //   });
-
-    //   setDataUploadStatus(true);
-    //   console.log("Data written successfully!");
-    // } catch (error) {
-    //   console.error("Error writing data:", error);
-    // }
-
-    // console.log(items)
+      setDataUploadStatus(true);
+      // console.log("Data written successfully!");
+    } catch (error) {
+      console.error("Error writing data:", error);
+    }
 
     setTitle("");
     setDescription("");
@@ -317,12 +64,8 @@ export default function AddNewItem({ setItems, items }) {
     setImageUrl3("");
     setImageUrl4("");
     setImageUrl5("");
-    fileInputRef1.current.value = "";
-    fileInputRef2.current.value = "";
-    fileInputRef3.current.value = "";
-    fileInputRef4.current.value = "";
-    fileInputRef5.current.value = "";
-    // console.log("end");
+    setCheckBox("")
+
   }
 
   return (
@@ -407,110 +150,87 @@ export default function AddNewItem({ setItems, items }) {
           </div>
 
           <div class="mb-3">
+          <label for="file1" class="form-label">
+              Add An Image for the product:
+            </label>
             <input
-              type="file"
-              class="form-control"
+              type="text"
+              class="form-control mt-1"
               aria-label="file example"
-              ref={fileInputRef1}
+              id="file1"
+              value={imageUrl1}
               onChange={(ev) => {
-                const uploadedFile = ev.target.files[0];
+                const uploadedFile = ev.target.value;
                 setImageUrl1(uploadedFile);
-                //   setSelectedImage1(uploadedFile);
-
-                //   if (uploadedFile) {
-                //     const reader = new FileReader();
-                //     reader.onloadend = () => {
-                //       setImageUrl1(reader.result);
-                //     };
-                //     reader.readAsDataURL(uploadedFile);
-                //   }
               }}
               required
             />
             <div class="invalid-feedback">
-              *Recommanded: Add Pictures with [width: 300px] and [height: 300px]
+              *Recommanded: Add Pictures with [width: 300px] and [height: 300px]*
+            </div>
+            <div class="">
+              Note: Use "PostImage.com" To Upload Your Images And Then Paste The URLs In the Input Boxes
+
             </div>
           </div>
 
-          <p className="text-center">Add More Images</p>
+          <h5 className="text-start">--Additional Image Options--</h5>
           <div class="mb-3 ">
+          <label for="file2" class="form-label">
+          2nd Image:
+            </label>
             <input
-              type="file"
-              class=""
+              type="text"
+              class="form m-2"
               aria-label="file example"
-              ref={fileInputRef2}
+              id="file2"
+              value={imageUrl2}
               onChange={(ev) => {
-                const uploadedFile = ev.target.files[0];
+                const uploadedFile = ev.target.value;
                 setImageUrl2(uploadedFile);
-                //   setSelectedImage2(uploadedFile);
-
-                //   if (uploadedFile) {
-                //     const reader = new FileReader();
-                //     reader.onloadend = () => {
-                //       setImageUrl2(reader.result);
-                //     };
-                //     reader.readAsDataURL(uploadedFile);
-                //   }
               }}
             />
-
+            <label for="file3" class="form-label">
+            3rd Image:
+            </label>
             <input
-              type="file"
-              class=""
+              type="text"
+              class=" m-2"
               aria-label="file example"
-              ref={fileInputRef3}
+              id="file3"
+              value={imageUrl3}
               onChange={(ev) => {
-                const uploadedFile = ev.target.files[0];
+                const uploadedFile = ev.target.value;
                 setImageUrl3(uploadedFile);
-                // setSelectedImage3(uploadedFile);
-
-                // if (uploadedFile) {
-                //   const reader = new FileReader();
-                //   reader.onloadend = () => {
-                //     setImageUrl3(reader.result);
-                //   };
-                //   reader.readAsDataURL(uploadedFile);
-                // }
               }}
             />
-
+            </div>
+            <div class="mb-3 ">
+            <label for="file4" class="form-label">
+              4th Image:
+            </label>
             <input
-              type="file"
-              class=""
+              type="text"
+              class="form m-2"
               aria-label="file example"
-              ref={fileInputRef4}
+              value={imageUrl4}
+              id="file4"
               onChange={(ev) => {
-                const uploadedFile = ev.target.files[0];
+                const uploadedFile = ev.target.value;
                 setImageUrl4(uploadedFile);
-                // setSelectedImage4(uploadedFile);
-
-                // if (uploadedFile) {
-                //   const reader = new FileReader();
-                //   reader.onloadend = () => {
-                //     setImageUrl4(reader.result);
-                //   };
-                //   reader.readAsDataURL(uploadedFile);
-                // }
               }}
             />
-
+            <label for="file5" class="form-label">
+             5th Image:
+            </label>
             <input
-              type="file"
-              class=""
+              type="text"
+              class="form m-2"
+              id="file5"
               aria-label="file example"
-              ref={fileInputRef5}
               onChange={(ev) => {
-                const uploadedFile = ev.target.files[0];
+                const uploadedFile = ev.target.value;
                 setImageUrl5(uploadedFile);
-                // setSelectedImage5(uploadedFile);
-
-                // if (uploadedFile) {
-                //   const reader = new FileReader();
-                //   reader.onloadend = () => {
-                //     setImageUrl5(reader.result);
-                //   };
-                //   reader.readAsDataURL(uploadedFile);
-                // }
               }}
             />
           </div>
@@ -578,7 +298,7 @@ export default function AddNewItem({ setItems, items }) {
                         </div>
                       </div>
                     ) : (
-                      <div class="modal-body d-flex justify-content-center align-items-center ">
+                      <div class="modal-body d-flex justify-content-center align-items-center text-success">
                         Data Uploaded Successfully
                         <div className="m-1">
                           <FaCheckCircle size={25} />
@@ -623,7 +343,7 @@ export default function AddNewItem({ setItems, items }) {
                         aria-label="Close"
                       ></button>
                     </div>
-                    <div class="modal-body">Please first Fill the form.</div>
+                    <div class="modal-body text-danger text-center">Please first Fill the form.</div>
                     <div class="modal-footer">
                       <button
                         type="button"
