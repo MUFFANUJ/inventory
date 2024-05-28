@@ -40,58 +40,20 @@ export default function InstructorViewAllItems({ items, setItems }) {
         });
         setItems(req);
         setLoading(true);
-        // console.log(myRequest)
       });
       return () => {
         userReqs();
       };
     }
-
-    //   const productRef = doc(db, "productsData","items");
-    //   const docSnap = await getDoc(productRef);
-    //   if (docSnap.exists()) {
-    //     console.log("Document data:", (docSnap.data()).product);
-    //     setItems((docSnap.data()).product);
-    //     setLoading(true);
-    //   } else {
-    //     // docSnap.data() will be undefined in this case
-    //     console.log("No such document!");
-    //   }
-    // }
     getProducts();
   }, []);
 
-  // function displayAll(){
-  // setRatingSort(prev => !prev);
-  //   setItems(itemsCopy);
-  // }
 
   function sortByRating() {
-    // return [...items].sort((a, b) => a.rating - b.rating).reverse();
-    // const arr2 = items.map(item=> ({...item}))
-    // const arr = items.slice().sort((a, b) => a.rating - b.rating).reverse();
-    // console.log(arr)
-    // console.log(items)
-
-    // Create a new array by slicing the original one
     const newArrayToSort = items.slice();
-
-    // Sort the new array using a comparison function
     newArrayToSort.sort((a, b) => b.rating - a.rating);
-
-    // console.log(arr2); // Remains unchanged
-    // console.log(newArrayToSort); // Sorted array in ascending order by age
-
-    // setRatingSort(prev => !prev);
-    // if (ratingSort){
-    // console.log(true);
-    // setItems(itemsCopy);
-    // }else{
     setItems([...newArrayToSort]);
-    // }
-    // console.log(arr)
-    // setRatingSort(arr)
-    // setItems(ratingSort);
+
   }
 
   // function handleRatingSort(){
@@ -628,201 +590,6 @@ export default function InstructorViewAllItems({ items, setItems }) {
                           </div>
                         </div>
                       )}
-                      {/* <div
-                        class="modal fade"
-                        id={`exampleModal${item.id}`}
-                        tabindex="-1"
-                        aria-labelledby="exampleModalLabel"
-                        aria-hidden="true"
-                      >
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h1
-                                class="modal-title fs-5"
-                                id="exampleModalLabel"
-                              >
-                                Edit Details For:- {item.title}
-                              </h1>
-                              <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                              ></button>
-                            </div>
-                            <div class="modal-body">
-                              <form
-                                onSubmit={(e) => {
-                                  e.preventDefault();
-                                  handleEdit(item.id);
-                                }}
-                              >
-                                <div class="mb-1 text-start">
-                                  <label
-                                    for="recipient-name"
-                                    class="col-form-label"
-                                  >
-                                    Title:
-                                  </label>
-                                  <input
-                                    type="text"
-                                    class="form-control"
-                                    id="recipient-name"
-                                    value={editTitle}
-                                    onChange={(ev) =>
-                                      setEditTitle(ev.target.value)
-                                    }
-                                  />
-                                </div>
-                                <div class="mb-1 text-start">
-                                  <label
-                                    for="message-text"
-                                    class="col-form-label"
-                                  >
-                                    Description:
-                                  </label>
-                                  <textarea
-                                    class="form-control"
-                                    id="message-text"
-                                    value={editDescription}
-                                    onChange={(ev) =>
-                                      setEditDescription(ev.target.value)
-                                    }
-                                  ></textarea>
-                                </div>
-                                <div class="mb-1 text-start">
-                                  <label
-                                    for="recipient-name"
-                                    class="col-form-label"
-                                  >
-                                    Availablility:
-                                  </label>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="recipient-name"
-                                    value={editAvailibility}
-                                    onChange={(ev) =>
-                                      setEditAvalibility(ev.target.value)
-                                    }
-                                  />
-                                </div>
-                                <div class="mb-1 text-start">
-                                  <label
-                                    for="recipient-name"
-                                    class="col-form-label"
-                                  >
-                                    Category:
-                                  </label>
-                                  <input
-                                    type="number"
-                                    class="form-control"
-                                    id="recipient-name"
-                                    value={editCategory}
-                                    onChange={(ev) =>
-                                      setEditCategory(ev.target.value)
-                                    }
-                                  />
-                                </div>
-                                <div class="mb-1 text-start">
-                                  <label
-                                    for="recipient-name"
-                                    class="col-form-label"
-                                  >
-                                    Image-1:-
-                                  </label>
-                                  <input
-                                    type="text"
-                                    class=""
-                                    id="recipient-name"
-                                    value={editImg1}
-                                    onChange={(ev) =>
-                                      setEditImg1(ev.target.value)
-                                    }
-                                  />
-                                  <div>
-                                    <label
-                                      for="recipient-name"
-                                      class="col-form-label"
-                                    >
-                                      Image-2:-
-                                    </label>
-                                    <input
-                                      type="text"
-                                      class=""
-                                      id="recipient-name"
-                                      value={editImg2}
-                                      onChange={(ev) =>
-                                        setEditImg2(ev.target.value)
-                                      }
-                                    />
-                                  </div>
-                                  <label
-                                    for="recipient-name"
-                                    class="col-form-label"
-                                  >
-                                    Image-3:-
-                                  </label>
-                                  <input
-                                    type="text"
-                                    class=""
-                                    id="recipient-name"
-                                    value={editImg3}
-                                    onChange={(ev) =>
-                                      setEditImg3(ev.target.value)
-                                    }
-                                  />
-                                  <div>
-                                    <label
-                                      for="recipient-name"
-                                      class="col-form-label"
-                                      value={editImg4}
-                                      onChange={(ev) =>
-                                        setEditImg4(ev.target.value)
-                                      }
-                                    >
-                                      Image-4:-
-                                    </label>
-                                    <input
-                                      type="text"
-                                      class=""
-                                      id="recipient-name"
-                                    />
-                                  </div>
-                                  <label
-                                    for="recipient-name"
-                                    class="col-form-label"
-                                  >
-                                    Image-5:-
-                                  </label>
-                                  <input
-                                    type="text"
-                                    class=""
-                                    id="recipient-name"
-                                    value={editImg5}
-                                    onChange={(ev) =>
-                                      setEditImg5(ev.target.value)
-                                    }
-                                  />
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="submit" class="btn btn-primary">
-                                    Submit
-                                  </button>
-                                  <button
-                                    type="button"
-                                    class="btn btn-secondary"
-                                    data-bs-dismiss="modal"
-                                  >
-                                    Close
-                                  </button>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                   </div>
                 </div>

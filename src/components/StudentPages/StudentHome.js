@@ -18,7 +18,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
-export default function InstructorHome() {
+export default function StudentHome() {
   const [latest, setLatest] = useState([]);
   const [trending, setTrending] = useState([]);
   useEffect(() => {
@@ -197,5 +197,5 @@ export default function InstructorHome() {
         </div>
       </div>
     </div>
-  );
+  )
 }

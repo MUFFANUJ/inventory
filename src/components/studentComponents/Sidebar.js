@@ -1,6 +1,5 @@
-import React, {useState} from "react";
-import { NavLink } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import React,{useState} from "react";
+import { NavLink,useNavigate } from 'react-router-dom';
 import { FaCartArrowDown } from "react-icons/fa6";
 import { MdDensitySmall } from "react-icons/md";
 import { HiBellAlert } from "react-icons/hi2";
@@ -10,20 +9,15 @@ import { MdReport } from "react-icons/md";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
 import unicartLogo from "../../assets/uniCart-Logo.png"
 import { getAuth, signOut } from "firebase/auth";
-import { BiLogOut } from "react-icons/bi";
-
 
 
 export default function Sidebar() {
   const navigate = useNavigate();
-
   const [element1Hovered, setElement1Hovered] = useState(false);
   const [element2Hovered, setElement2Hovered] = useState(false);
   const [element3Hovered, setElement3Hovered] = useState(false);
   const [element4Hovered, setElement4Hovered] = useState(false);
   const [element5Hovered, setElement5Hovered] = useState(false);
-  const [element6Hovered, setElement6Hovered] = useState(false);
-  const [element7Hovered, setElement7Hovered] = useState(false);
 
   const handleMouseEnter1 = () => setElement1Hovered(true);
   const handleMouseLeave1 = () => setElement1Hovered(false);
@@ -59,7 +53,7 @@ export default function Sidebar() {
   const handleMouseLeave4 = () => setElement4Hovered(false);
 
   const element4Style = {
-    backgroundColor: element4Hovered ? '#04b0a4' : '',
+    backgroundColor: element4Hovered ? '#f04856' : '',
     color:element4Hovered ? 'white' : 'black',
     borderRadius:"13px",
   };
@@ -72,23 +66,6 @@ export default function Sidebar() {
     color:element5Hovered ? 'white' : 'black',
     borderRadius:"13px",
   };
-  const handleMouseEnter6 = () => setElement6Hovered(true);
-  const handleMouseLeave6 = () => setElement6Hovered(false);
-
-  const element6Style = {
-    backgroundColor: element6Hovered ? '#f04856' : '',
-    color:element6Hovered ? 'white' : 'black',
-    borderRadius:"13px",
-  };
-  const handleMouseEnter7 = () => setElement7Hovered(true);
-  const handleMouseLeave7 = () => setElement7Hovered(false);
-
-  const element7Style = {
-    backgroundColor: element7Hovered ? '#f56918' : '',
-    color:element7Hovered ? 'white' : 'black',
-    borderRadius:"13px",
-  };
-
   function handleLogOut(){
     const auth = getAuth();
   signOut(auth).then(() => {
@@ -97,23 +74,18 @@ export default function Sidebar() {
   console.log(error)
   });
   }
+ 
 
   return (
-    <>
-     <div className=" text-center mb-3">
-        <h4 className="d-flex justify-content-center align-items-center "> <img style={{width:"29px",borderRadius:"800px"}} src={unicartLogo}/>
-        <span style={{fontSize:"30px"}}>UniCart</span>
-        </h4>
+    
+   <>
+      <div className=" text-center mb-3">
+        <h4 className="d-flex justify-content-center align-items-center"> <img style={{width:"29px",borderRadius:"800px"}} src={unicartLogo}/>UniCart</h4>
         
       </div>
-    <div className="border border-right-3 d-flex flex-column flex-shrink-0 p-3 " style={{borderRadius:"0px 40px 40px 0px",backgroundImage: "linear-gradient(to top, #dfe9f3 0%, white 100%)"
+    <div className=" border border-right-3 d-flex flex-column flex-shrink-0 p-3 bg-light" style={{borderRadius:"40px",backgroundImage: "linear-gradient(to top, #dfe9f3 0%, white 100%)"}}>
 
-
-
-}}>
-      
-
-      <div className="d-grid gap-2 ">
+      <div className="d-grid gap-2">
         <NavLink
           className="btn  p-3 text-start focus-ring focus-ring-primary"
           to="home"
@@ -122,53 +94,42 @@ export default function Sidebar() {
           <FaCartArrowDown /> HOME
         </NavLink>
         <NavLink
-          className="btn  p-3 text-start"
+          className="btn p-3 text-start focus-ring focus-ring-success"
           to="all-items"
           style={element2Style} onMouseEnter={handleMouseEnter2} onMouseLeave={handleMouseLeave2}
         >
           <MdDensitySmall /> View All Items
         </NavLink>
         <NavLink
-          className="btn  p-3 text-start"
-          to="active-requests"
+          className="btn p-3 text-start focus-ring focus-ring-warning"
+          to="requests"
           style={element3Style} onMouseEnter={handleMouseEnter3} onMouseLeave={handleMouseLeave3}
         >
-          <HiBellAlert /> View Active Requests
+          <HiBellAlert /> My Requests
         </NavLink>
+       
         <NavLink
-          className="btn p-3 text-start"
-          to="new-item"
-          style={element4Style} onMouseEnter={handleMouseEnter4} onMouseLeave={handleMouseLeave4}
-        >
-          <IoAddCircleSharp /> Add An Item
-        </NavLink>
-        <NavLink
-          className="btn p-3 text-start"
-          to="history"
-          style={element5Style} onMouseEnter={handleMouseEnter5} onMouseLeave={handleMouseLeave5}
-        >
-          <FaHistory /> History Of Requests
-        </NavLink>
-        <NavLink
-          className="btn p-3 text-start"
+          className="btn p-3 text-start focus-ring focus-ring-danger"
           to="report"
-          style={element6Style} onMouseEnter={handleMouseEnter6} onMouseLeave={handleMouseLeave6}
+          style={element4Style} onMouseEnter={handleMouseEnter4} onMouseLeave={handleMouseLeave4}
         >
           <MdReport /> Report A Problem
         </NavLink>
         <NavLink
-          className="btn p-3 text-start"
+          className="btn p-3 text-start focus-ring focus-ring-danger"
           to="about"
-          style={element7Style} onMouseEnter={handleMouseEnter7} onMouseLeave={handleMouseLeave7}
+          style={element5Style} onMouseEnter={handleMouseEnter5} onMouseLeave={handleMouseLeave5}
         >
           <BsFillQuestionCircleFill /> About
         </NavLink>
 
-        <span style={{marginTop:`${window.innerHeight-650}px`}} ></span>
+
+        <span style={{marginTop:`${window.innerHeight-500}px`}} ></span>
         
-       <button className="btn btn-info position-relative bottom-0 rounded d-flex justify-content-center align-items-center" onClick={handleLogOut}><BiLogOut/>LogOut</button>
-      </div>
-    </div>
-    </>
+       <button className="btn btn-info position-relative bottom-0" onClick={handleLogOut}>LogOut</button>
+  </div>
+  </div>
+   </>
+    
   );
 }

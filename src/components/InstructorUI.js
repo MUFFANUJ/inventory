@@ -2,7 +2,7 @@ import React , {useState, useEffect} from "react";
 import Sidebar from "./InstructorComponents/Sidebar";
 import Navbar from "./InstructorComponents/Navbar";
 import Footer from "./InstructorComponents/Footer";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import About from "./IndstructorPages/About";
 import ReportAPorblem from "./IndstructorPages/ReportAPorblem";
 import AddNewItem from "./IndstructorPages/AddNewItem";
@@ -10,7 +10,7 @@ import HistoryOfRequests from "./IndstructorPages/HistoryOfRequests";
 import InstructorHome from "./IndstructorPages/InstructorHome";
 import ViewActiveRequest from "./IndstructorPages/ViewActiveRequest";
 import InstructorViewAllItems from "./IndstructorPages/InstructorViewAllItems";
-// import { useState } from "react";
+
 
 export default function InstructorUI() {
 
@@ -27,8 +27,7 @@ export default function InstructorUI() {
     return () => window.removeEventListener('resize', handleResize);
   }, [window.innerWidth]);
   return (
-    <BrowserRouter>
-      <div className="row ">
+      <div className="row w-100 ">
         <div className={`col-2 p-0 sticky-top ${isMobile ? 'd-none' : 'd-block'}`}>
           <div className="sticky-top">
           <Sidebar />
@@ -36,27 +35,22 @@ export default function InstructorUI() {
         </div>
         <div className={`${isMobile ? "col": "col-10"} p-0`}>
           <div class="row">
-            <div class="col sticky-top p-0">
+            <div class="col sticky-top p-0" style={{marginLeft:"12px",}}>
               <Navbar isMobile={isMobile} />
             </div>
-            <div class="row">
-              <Routes>
-                <Route path="/about" element={<About />} />
-                <Route path="/new-item" element={<AddNewItem setItems={setItems} items={items}/>} />
-                <Route path="/history" element={<HistoryOfRequests />} />
-                <Route path="/" element={<InstructorHome />} />
-                <Route path="/report" element={<ReportAPorblem />} />
-                <Route path="/requests" element={<ViewActiveRequest />} />
-                <Route path="/all-items" element={<InstructorViewAllItems setItems={setItems} items={items} />} />
-                {/* <Route path="/report" element={<ReportAPorblem/>} /> */}
-              </Routes>
+            <div class="row p-0" >
+              <Outlet/>
             </div>
             <div class="row mt-5">
-              <Footer />
+              
             </div>
+            
           </div>
+          
         </div>
+        <hr/>
+        <Footer />
+        
       </div>
-    </BrowserRouter>
   );
 }
